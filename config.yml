@@ -1,0 +1,18 @@
+baseURL: "https://examplesite.com/"
+title: Hengist
+paginate: 5
+theme: PaperMod
+
+params:
+  author: Hengist
+  DateFormat: "January 2, 2006"
+  label:
+    text: "Hengist"
+    iconHeight: 35
+
+menu:
+  main:
+    - identifier: tags
+      name: tags
+      url: /tags/
+      weight: 20
