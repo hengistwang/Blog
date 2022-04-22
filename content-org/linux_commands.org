@@ -1,0 +1,16 @@
+#+hugo_base_dir: ../
+#+hugo_section: posts
+#+hugo_auto_set_lastmod: t
+#+hugo_tags: Linux
+#+title: Linux_Commands
+#+date: <2022-04-23 Sat>
+OS: openSUSE Tumbleweed
+
+#+begin_src shell
+#清理无用的软件包
+zypper -tqn --no-refresh pa --unneeded |grep '^i |' |awk -F "|" '{print $3}' |xargs sudo zypper rm -u
+#后台执行
+nohup ./shell.sh > nohup.out 2>&1 &
+#生成指定长度的随机字符串
+openssl rand -hex 1000
+#+end_src

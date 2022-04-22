@@ -1,0 +1,154 @@
+#+hugo_base_dir: ../
+#+hugo_section: posts
+#+hugo_auto_set_lastmod: t
+#+hugo_tags: 笔记
+#+title: 剑指Offer笔记
+#+date: <2022-04-16 Sat>
+
+* 前言
+前面说了几个编程习惯，还是挺重要的:
++ 思考清楚在开始写代码
++ 良好的命名和缩进对齐习惯
++ 能够进行单元测试，最好能做到测试在前，开发在后
+
+介绍项目经验的时候，按照STAR模型介绍最好
+| Situation      | Task           | Action                 | Result     |
+| 简短的项目背景 | 自己完成的部分 | 做了些什么，是怎么做的 | 自己的贡献 |
+回答为什么跳槽时，最好不要透露出负面情绪。老板问题，同事问题，加班问题，薪资问题等这些都是重灾区。算是一个潜规则吧。
+最好的回答方式是目前的工作缺少激情、没上升空间等等的，想寻找一份更有挑战性的工作等等的，多说自身，而不是抱怨那些乱七八糟的。
+
+* 基础知识
+1. C++ 实现string 类的赋值运算符
+   #+begin_src cpp
+// 这个是初级的写法，如果new失败了的话原来的string里的东西也没了
+ CMyString& CMyString::operator = (const CMyString& str)
+{
+    if(this == &str)
+        return *this;
+
+    delete []m_pData;
+    m_pData = nullptr;
+
+    m_pData = new char[strlen(str.m_pData) + 1];
+    strcpy(m_pData, str.m_pData);
+
+    return *this;
+}
+//其实下面这个才是最常用的写法,用一个临时变量来存储str，然后交换两者，出去if后直接调用strTemp的析构函数，并且内存如果分配失败，也不会导致删除原来的数据；
+CMyString& CMyString::operator = (const CMyString& str)
+{
+    if(this!=&str)
+    {
+        CMyString strTemp(str);
+        swap(m_pData,strTemp.m_pData);
+    }
+    return *this;
+}
+#+end_src
+2. 实现Singleton模式
+    #+begin_src cpp
+//最简单的一个例子，一个私有地static的指向自己的指针，然后简单地实现GetInstance()函数,可以发现这个线程不安全的
+protected:
+    static Singleton* singleton_;
+Singleton *Singleton::GetInstance(const std::string& value)
+{
+    if(singleton_==nullptr){
+        singleton_ = new Singleton(value);
+    }
+    return singleton_;
+}
+#+end_src
+    #+begin_src cpp
+// 下面这个是线程安全的例子
+#include <iostream>
+#include <thread>
+#include <mutex>
+class Singleton
+{
+
+private:
+    static Singleton * singleton_;
+    static std::mutex mutex_;
+
+protected:
+    Singleton(const std::string value): value_(value) {}
+    ~Singleton() {}
+    std::string value_;
+
+public:
+    Singleton(Singleton &other) = delete;
+    void operator=(const Singleton &) = delete;
+    static Singleton *GetInstance(const std::string& value);
+    void SomeBusinessLogic() {}
+
+    std::string value() const{return value_;
+    }
+};
+
+Singleton* Singleton::singleton_{nullptr};
+std::mutex Singleton::mutex_;
+
+Singleton *Singleton::GetInstance(const std::string& value)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (singleton_ == nullptr)
+    {
+        singleton_ = new Singleton(value);
+    }
+    return singleton_;
+}
+
+void ThreadFoo(){
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    Singleton* singleton = Singleton::GetInstance("FOO");
+    std::cout << singleton->value() << "\n";
+}
+
+void ThreadBar(){
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    Singleton* singleton = Singleton::GetInstance("BAR");
+    std::cout << singleton->value() << "\n";
+}
+
+int main()
+{
+    std::cout <<"If you see the same value, then singleton was reused (yay!\n" <<
+                "If you see different values, then 2 singletons were created (booo!!)\n\n" <<
+                "RESULT:\n";
+    std::thread t1(ThreadFoo);
+    std::thread t2(ThreadBar);
+    t1.join();
+    t2.join();
+
+    return 0;
+}
+#+end_src
+3. 数组中重复的数字
+   一个长度为n的数组，并且数字都在(0,n-1)范围内，找出任意一个重复的数字.
+   #+begin_src cpp
+//首先想到的呢便是用一个set来找重复,便有了下面的代码:
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        unordered_set<int> m;
+        for(auto i : nums) {
+            if(m.emplace(i).second == false) return i;
+        }
+        return -1;
+    }
+};
+//但是题目说了每个数字的范围，那么理想情况便是每个数字的位置下标应和数字大小是一样的，那只需要看是否每个数字都在自己应该再的位置就行了
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        int n = nums.size();
+        for(int i = 0; i < n; ++i){
+            while(nums[i] != i) {//之前这里用了个if，出了个bug，应该要一直swap直到该位置是该放那里的数字
+                if(nums[i]!=nums[nums[i]]) swap(nums[i],nums[nums[i]]);
+                else return nums[i];
+            }
+        }
+        return -1;
+    }
+};
+   #+end_src

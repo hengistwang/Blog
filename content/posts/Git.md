@@ -2,8 +2,8 @@
 title = "Git"
 author = ["hengist"]
 date = 2022-04-11T00:00:00+08:00
-lastmod = 2022-04-12T00:17:47+08:00
-tags = ["emacs", "orgmode"]
+lastmod = 2022-04-20T00:32:23+08:00
+tags = ["Git"]
 draft = false
 +++
 

@@ -1,7 +1,7 @@
 #+hugo_base_dir: ../
 #+hugo_section: posts
 #+hugo_auto_set_lastmod: t
-#+hugo_tags: emacs orgmode
+#+hugo_tags: Git
 #+title: Git
 #+date: <2022-04-11 Mon>
 
