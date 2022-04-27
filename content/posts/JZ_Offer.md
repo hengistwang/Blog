@@ -2,7 +2,7 @@
 title = "剑指Offer笔记"
 author = ["hengist"]
 date = 2022-04-16T00:00:00+08:00
-lastmod = 2022-04-23T00:51:54+08:00
+lastmod = 2022-04-27T20:23:22+08:00
 tags = ["笔记"]
 draft = false
 +++
@@ -164,4 +164,73 @@ draft = false
             return -1;
         }
     };
+    ```
+4.  二维数组中的查找
+    在一个(n \* m)的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
+    输入这样的一个二维数组和一个整数
+    判断数组中是否含有该整数。
+
+    ```cpp
+    //从右上或者左下开始找，这样才是单调的，只有向上（向下）或者向右（向左）两个方向查找
+    class Solution {
+    public:
+      bool findNumberIn2DArray(vector<vector<int>> &matrix, int target) {
+        int i = matrix.size() - 1;
+        int j = 0;
+        while (i >= 0 && j < matrix[0].size()) {
+          if (matrix[i][j] > target)
+            --i;
+          else if (matrix[i][j] < target)
+            ++j;
+          else
+            return true;
+        }
+        return false;
+      }
+    };
+    ```
+5.  替换空格
+    把字符串 s 中的每个空格替换成"%20"。
+
+    ```cpp
+    //很多时候如果从头处理会有很多的移动的话，不妨试试从尾部开始处理
+    class Solution {
+    public:
+      string replaceSpace(string s) {
+        int nblank = 0;
+        for (auto i : s) {
+          if (' ' == i)
+            nblank++;
+        }
+        int n = s.size();
+        int i = n - 1;
+        int j = n + 2 * nblank - 1;
+        s.resize(s.size() + 2 * nblank);
+        while (i >= 0) {
+          if (s[i] == ' ') {
+            s[j--] = '0';
+            s[j--] = '2';
+            s[j--] = '%';
+            --i;
+          } else {
+            s[j--] = s[i--];
+          }
+        }
+        return s;
+      }
+    };
+    ```
+
+    然后介绍了下链表(待续)
+
+    ```cpp
+    //definition
+    struct ListNode {
+        int val;
+        ListNode *next;
+        ListNode() : val(0), next(nullptr) {}
+        ListNode(int x) : val(x), next(nullptr) {}
+        ListNode(int x, ListNode *next) : val(x), next(next) {}
+    };
+    //add_to_tail
     ```
