@@ -54,14 +54,9 @@ params:
   homeInfoParams:
     Title: "A incorrigible idealism"
     Content: >
-      In case I don't see ya, good afternoon, good evening and good night.
-
       - Emacs/Linux/C/C++...
 
-      - Hiking + Video Games + Rock 'n' Roll + Movies + ...
-
-      - [My Resume](127.0.0.1) (Still not Done it...)
-
+      - [About me](127.0.0.1)
 markup:
   goldmark:
     renderer:
