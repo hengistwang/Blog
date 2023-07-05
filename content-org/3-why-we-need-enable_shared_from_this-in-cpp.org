@@ -1,9 +1,9 @@
-#+hugo_base_dir: ../
-#+hugo_section: posts
-#+hugo_auto_set_lastmod: t
-#+hugo_tags: cpp
-#+title: why we need enable_shared_from_this in cpp
-#+date: <2023-07-03 Mon>
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: cpp
+#+TITLE: Why we need enable_shared_from_this in cpp
+#+DATE: <2023-07-03 Mon>
 
 * Problem
 #+BEGIN_SRC cpp
@@ -26,14 +26,14 @@ int main() {
 // fish: Job 1, './a.out' terminated by signal SIGABRT (Abort)
 #+END_SRC
 * Why
-it is because when a shared_ptr was created ,the control block was build up too, and there are three methods can create control block
+it is because when a shared_ptr was created, the control block was build up too, and there are three methods can create control block
 1. make_shared
 2. make a shared_ptr from a unique_ptr
 3. make a shared_ptr from an origin pointer(this(class) is an origin pointer)
 
-   where there is more then one control block for only one object, it will free the object more then once.
+ Where there is more than one control block for only one object, it will free the object more than once.
 
-   in order to get shared_ptr for a this pointer in a class, we need to use shared_from_this() to create shared_ptr point to Current object and connect to the same created control block, Avoided the multi control block problem
+   In order to get shared_ptr for a "this" pointer in a class, we need to use shared_from_this() to create shared_ptr point to Current object and connect to the same created control block, Avoided the multi control block problem
 
 * Best practice
 #+BEGIN_SRC cpp

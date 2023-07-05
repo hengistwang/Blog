@@ -2,7 +2,7 @@
 title = "My Own Gentoo Install Guide"
 author = ["hengist"]
 date = 2023-07-02T00:00:00+08:00
-lastmod = 2023-07-02T17:06:33+08:00
+lastmod = 2023-07-05T22:33:26+08:00
 tags = ["Gentoo", "Linux"]
 draft = false
 +++
@@ -24,7 +24,7 @@ swapon /dev/sda2
 
 ## II. Installing stage3 {#ii-dot-installing-stage3}
 
-Download the stage3 from Gento's website and put it in the /mnt/gentoo
+Download the stage3 from Gentoo's website and put it in the /mnt/gentoo
 
 ```bash
 # unpack it
