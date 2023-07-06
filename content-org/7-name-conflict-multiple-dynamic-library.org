@@ -1,0 +1,53 @@
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: cpp
+#+TITLE: name conflict multiple dynamic library
+#+DATE: <2023-07-06 Thu>
+#+BEGIN_SRC cpp
+/*func_A.c*/
+#include <stdio.h>
+int sayHi() {
+  printf("Hi,this is AAAAA\n");
+  return 0;
+}
+int sayOut() {
+  sayHi();
+  printf("Use this to introduce AAAAA\n");
+  return 0;
+}
+
+#+END_SRC
+
+#+BEGIN_SRC cpp
+/*func_B.c*/
+#include <stdio.h>
+int sayHi() {
+  printf("Hi,this is BBBBB\n");
+  return 0;
+}
+int sayOut() {
+  sayHi();
+  printf("Use this to introduce BBBBB\n");
+  return 0;
+}
+
+#+END_SRC
+
+#+BEGIN_SRC cpp
+#+END_SRC
+
+#+BEGIN_SRC cpp
+#+END_SRC
+
+#+BEGIN_SRC cpp
+#+END_SRC
+
+#+BEGIN_SRC cpp
+#+END_SRC
+
+#+BEGIN_SRC cpp
+#+END_SRC
+
+#+BEGIN_SRC cpp
+#+END_SRC
