@@ -75,3 +75,8 @@ markup:
     noHl: false
     style: solarized-dark
     tabWidth: 4
+
+module:
+  imports:
+  - path: github.com/adityatelange/hugo-PaperMod
+
