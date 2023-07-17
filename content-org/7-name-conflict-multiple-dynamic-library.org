@@ -1,14 +1,16 @@
 #+HUGO_BASE_DIR: ../
 #+HUGO_SECTION: posts
 #+HUGO_AUTO_SET_LASTMOD: t
-#+HUGO_TAGS: cpp
+#+HUGO_TAGS: Link
 #+TITLE: name conflict multiple dynamic library
 #+DATE: <2023-07-06 Thu>
-#+BEGIN_SRC cpp
-/*func_A.c*/
+
+* Here is the Question
+#+BEGIN_SRC c
+/*A.c*/
 #include <stdio.h>
 int sayHi() {
-  printf("Hi,this is AAAAA\n");
+  printf("Hi, this is AAAAA\n");
   return 0;
 }
 int sayOut() {
@@ -19,11 +21,11 @@ int sayOut() {
 
 #+END_SRC
 
-#+BEGIN_SRC cpp
-/*func_B.c*/
+#+BEGIN_SRC c
+/*B.c*/
 #include <stdio.h>
 int sayHi() {
-  printf("Hi,this is BBBBB\n");
+  printf("Hi, this is BBBBB\n");
   return 0;
 }
 int sayOut() {
@@ -34,20 +36,177 @@ int sayOut() {
 
 #+END_SRC
 
-#+BEGIN_SRC cpp
+#+BEGIN_SRC c
+#include <stdio.h>
+extern int sayOut();
+
+int main() {
+  sayOut();
+  return 0;
+}
+
+#+END_SRC
+#+BEGIN_SRC bash
+# if link A first
+>gcc test.c -L. -lA -lB
+>./a.out
+Hi, this is AAAAA
+Use this to introduce AAAAA
+# if link B first
+>gcc test.c -L. -lB -lA
+>./a.out
+Hi, this is BBBBB
+Use this to introduce BBBBB
+#+END_SRC
+* First solution
+at first i use dlopen to explicitly load a dynamic library
+#+BEGIN_SRC c
+#include <stdio.h>
+#include<dlfcn.h>
+extern int sayOut();
+
+typedef int (*func_pt)();
+
+
+int main() {
+    void *handle = NULL;
+    func_pt func = NULL;
+    if((handle = dlopen("./libA.so",RTLD_LAZY))== NULL)
+    {
+        printf("dlopen %s\n", dlerror());
+        return -1;
+    }
+    func = dlsym(handle, "sayOut");
+    func();
+    dlclose(handle);
+
+    if((handle = dlopen("./libB.so",RTLD_LAZY))== NULL)
+    {
+        printf("dlopen %s\n", dlerror());
+        return -1;
+    }
+    func = dlsym(handle, "sayOut");
+    func();
+    dlclose(handle);
+  return 0;
+}
+
+#+END_SRC
+#+BEGIN_SRC bash
+❯gcc test.c -L. -lA -lB
+❯ ./a.out
+Hi, this is AAAAA
+Use this to introduce AAAAA
+Hi, this is AAAAA
+Use this to introduce BBBBB
+
+❯ gcc test.c -L. -lB -lA
+❯ ./a.out
+Hi, this is BBBBB
+Use this to introduce AAAAA
+Hi, this is BBBBB
+Use this to introduce BBBBB
 #+END_SRC
 
-#+BEGIN_SRC cpp
-#+END_SRC
+we can see the outer func sayOut is load explicitly, however the inner function still related to linking order
+it is because the inner function are exposed to the outside
+* Second solution
+i use __attrubute__ to control if a function should expose to the outside
+here is an example
+#+BEGIN_SRC c
+/*A.c*/
+#include <stdio.h>
+#define DLL_PUBLIC __attribute__((visibility("default")))
+#define DLL_LOCAL __attribute__((visibility("hidden")))
 
-#+BEGIN_SRC cpp
-#+END_SRC
+DLL_LOCAL int sayHi() {
+  printf("Hi, this is AAAAA\n");
+  return 0;
+}
+DLL_PUBLIC int sayOut() {
+  sayHi();
+  printf("Use this to introduce AAAAA\n");
+  return 0;
+}
 
-#+BEGIN_SRC cpp
-#+END_SRC
+/*B.c*/
+#include <stdio.h>
 
-#+BEGIN_SRC cpp
-#+END_SRC
+#define DLL_PUBLIC __attribute__((visibility("default")))
+#define DLL_LOCAL __attribute__((visibility("hidden")))
 
-#+BEGIN_SRC cpp
+DLL_LOCAL int sayHi() {
+  printf("Hi, this is BBBBB\n");
+  return 0;
+}
+DLL_PUBLIC int sayOut() {
+  sayHi();
+  printf("Use this to introduce BBBBB\n");
+  return 0;
+}
+
+#+END_SRC
+#+BEGIN_SRC bash
+❯ gcc test.c -L. -lA -lB
+❯ ./a.out
+Hi, this is AAAAA
+Use this to introduce AAAAA
+Hi, this is BBBBB
+Use this to introduce BBBBB
+
+❯ gcc test.c -L. -lB -lA
+❯ ./a.out
+Hi, this is AAAAA
+Use this to introduce AAAAA
+Hi, this is BBBBB
+Use this to introduce BBBBB
+#+END_SRC
+* Third solution
+The third way is only set outer function to visible
+and compile it with -fvisibility=hidden argument
+#+BEGIN_SRC c
+/*A.c*/
+#include <stdio.h>
+#define DLL_PUBLIC __attribute__((visibility("default")))
+
+int sayHi() {
+  printf("Hi, this is AAAAA\n");
+  return 0;
+}
+DLL_PUBLIC int sayOut() {
+  sayHi();
+  printf("Use this to introduce AAAAA\n");
+  return 0;
+}
+
+/*B.c*/
+#include <stdio.h>
+
+#define DLL_PUBLIC __attribute__((visibility("default")))
+
+int sayHi() {
+  printf("Hi, this is BBBBB\n");
+  return 0;
+}
+DLL_PUBLIC int sayOut() {
+  sayHi();
+  printf("Use this to introduce BBBBB\n");
+  return 0;
+}
+#+END_SRC
+#+BEGIN_SRC bash
+and it worked as expected
+❯ gcc test.c -L. -lA -lB
+❯ ./a.out
+Hi, this is AAAAA
+Use this to introduce AAAAA
+Hi, this is BBBBB
+Use this to introduce BBBBB
+
+❯ gcc test.c -L. -lB -lA
+❯ ./a.out
+Hi, this is AAAAA
+Use this to introduce AAAAA
+Hi, this is BBBBB
+Use this to introduce BBBBB
 #+END_SRC

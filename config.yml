@@ -56,6 +56,8 @@ params:
     Content: >
       - Emacs/Linux/C/C++...
 
+      - There is only one heroism in the world: to see the world as it is and to love it.
+
       - [About me](127.0.0.1)
 markup:
   goldmark:
