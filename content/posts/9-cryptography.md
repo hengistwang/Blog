@@ -2,7 +2,7 @@
 title = "cryptography"
 author = ["hengist"]
 date = 2023-07-24T00:00:00+08:00
-lastmod = 2023-07-27T22:35:32+08:00
+lastmod = 2023-07-30T20:58:27+08:00
 tags = ["crypto"]
 draft = false
 +++
@@ -72,3 +72,5 @@ read the following books:
 -   Alan Turing: The Enigma: The Book That Inspired the Film The Imitation Game - Updated Edition Paperback – Illustrated, November 10, 2014
 
 -   Code Breaking: A History and Explanation Paperback – December 4, 2012
+
+To be continued, recently I found the book I am reading was too elementary, so I decide not to continue finish it, and I will search for some material cover the subject in enough depth.
