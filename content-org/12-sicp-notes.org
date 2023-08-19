@@ -4,12 +4,12 @@
 #+HUGO_TAGS: scheme sicp
 #+TITLE: sicp notes
 #+DATE: <2023-08-06 Sun>
-
-At first this book talk about elements of programming is interesting
+* Building Abstractions with Procedures
+** At first this book talk about elements of programming is interesting
 + primitive expressions
 + means of combination
 + means of abstraction
-in this book we are gonna use scheme language, and i use chicken interpreter, just because i like it's interesting name.
+in this book we are going to use scheme language, and I use chicken interpreter, just because I like it's interesting name.
 #+BEGIN_SRC scheme
 this language use prefix notation like this
 (+ 1 2 3 4 5 6 7 8 9)
@@ -31,3 +31,7 @@ a good question asked at the end of first class, what's the difference between t
  b  ==> #<procedure (b)>
 (b) ==> 25
 #+END_SRC
+** applicative order versus normal order
+"fully expand and then reduce" method is normal-order, and "evaluate the arguments and then apply" method is applicative-order evaluation, and the second method is the interpreter actually uses. partly because of the additional efficiency obtained from avoiding multiple evaluation of expressions, and more significantly, normal-order evaluation becomes much more complicated to deal with when we leave the realm of procedures that can be modeled by substitution.
+
+if you can name it, you have power of it

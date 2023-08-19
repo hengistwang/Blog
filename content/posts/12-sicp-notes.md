@@ -2,18 +2,21 @@
 title = "sicp notes"
 author = ["hengist"]
 date = 2023-08-06T00:00:00+08:00
-lastmod = 2023-08-06T22:17:10+08:00
+lastmod = 2023-08-12T16:35:23+08:00
 tags = ["scheme", "sicp"]
 draft = false
 +++
 
-At first this book talk about elements of programming is interesting
+## Building Abstractions with Procedures {#building-abstractions-with-procedures}
+
+
+### At first this book talk about elements of programming is interesting {#at-first-this-book-talk-about-elements-of-programming-is-interesting}
 
 -   primitive expressions
 -   means of combination
 -   means of abstraction
 
-in this book we are gonna use scheme language, and i use chicken interpreter, just because i like it's interesting name.
+in this book we are going to use scheme language, and I use chicken interpreter, just because I like it's interesting name.
 
 ```scheme
 this language use prefix notation like this
@@ -36,3 +39,10 @@ a good question asked at the end of first class, what's the difference between t
  b  ==> #<procedure (b)>
 (b) ==> 25
 ```
+
+
+### applicative order versus normal order {#applicative-order-versus-normal-order}
+
+"fully expand and then reduce" method is normal-order, and "evaluate the arguments and then apply" method is applicative-order evaluation, and the second method is the interpreter actually uses. partly because of the additional efficiency obtained from avoiding multiple evaluation of expressions, and more significantly, normal-order evaluation becomes much more complicated to deal with when we leave the realm of procedures that can be modeled by substitution.
+
+if you can name it, you have power of it
