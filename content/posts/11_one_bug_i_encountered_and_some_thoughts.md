@@ -1,9 +1,9 @@
 +++
-title = "one bug I encountered and some thoughts"
+title = "One bug I encountered and some thoughts"
 author = ["hengist"]
 date = 2023-07-30T00:00:00+08:00
-lastmod = 2023-07-30T21:21:08+08:00
-tags = ["C", "C++"]
+lastmod = 2023-09-17T17:55:39+08:00
+tags = ["c", "c++"]
 draft = false
 +++
 

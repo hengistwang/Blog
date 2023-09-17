@@ -1,9 +1,9 @@
 +++
-title = "Link Load and Libs reading notes"
+title = "Link Load Lib"
 author = ["hengist"]
 date = 2023-07-02T00:00:00+08:00
-lastmod = 2023-07-18T22:49:00+08:00
-tags = ["Link", "Load", "Lib"]
+lastmod = 2023-09-17T17:50:28+08:00
+tags = ["link", "load", "lib"]
 draft = false
 +++
 

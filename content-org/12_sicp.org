@@ -1,9 +1,11 @@
 #+HUGO_BASE_DIR: ../
 #+HUGO_SECTION: posts
 #+HUGO_AUTO_SET_LASTMOD: t
+
 #+HUGO_TAGS: scheme sicp
-#+TITLE: sicp notes
+#+TITLE: SICP
 #+DATE: <2023-08-06 Sun>
+
 * Building Abstractions with Procedures
 ** At first this book talk about elements of programming is interesting
 + primitive expressions

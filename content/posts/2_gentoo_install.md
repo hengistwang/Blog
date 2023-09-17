@@ -1,11 +1,15 @@
-#+HUGO_BASE_DIR: ../
-#+HUGO_SECTION: posts
-#+HUGO_AUTO_SET_LASTMOD: t
-#+HUGO_TAGS: Gentoo Linux
-#+TITLE: My Own Gentoo Install Guide
-#+DATE: <2023-07-02 Sun>
-* I. Prepare Disk
-#+BEGIN_SRC bash
++++
+title = "Gentoo Install"
+author = ["hengist"]
+date = 2023-07-02T00:00:00+08:00
+lastmod = 2023-09-17T17:49:17+08:00
+tags = ["gentoo", "linux"]
+draft = false
++++
+
+## I. Prepare Disk {#i-dot-prepare-disk}
+
+```bash
 #disk wipe
 sgdisk --zap-all /dev/sda
 #partition disk
@@ -15,10 +19,14 @@ mkfs.btrfs/ext4/xfs/.... /dev/sda3
 mkswap /dev/sda2
 swapon /dev/sda2
 #then mount them
-#+END_SRC
-* II. Installing stage3
+```
+
+
+## II. Installing stage3 {#ii-dot-installing-stage3}
+
 Download the stage3 from Gentoo's website and put it in the /mnt/gentoo
-#+BEGIN_SRC bash
+
+```bash
 # unpack it
 tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner
 # get the portage config from my own git repo
@@ -48,19 +56,21 @@ eselect profile list
 eselect profile set X
 # config ccache before this step
 emerge -auvDN --with-bdeps=y --autounmask-write @world
-#+END_SRC
+```
 
 add ccache
-#+BEGIN_SRC bash
+
+```bash
 emerge -av dev-util/ccache
 #config ccache
 mkdir -p /var/cache/ccache
 chown root:portage -R /var/cache/ccache
 chmod 2775 -R /var/cache/ccache
-#+END_SRC
+```
 
 Then edit /var/cache/ccache/ccache.conf
-#+begin_example
+
+```text
 max_size = 512.0G
 umask = 002
 hash_dir = false
@@ -68,10 +78,12 @@ compiler_check = %compiler% -v
 cache_dir_levels = 3
 compression = true
 compression_level = 1
-#+end_example
+```
 
-* III. Post configure
-#+BEGIN_SRC bash
+
+## III. Post configure {#iii-dot-post-configure}
+
+```bash
 ln -sf ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 echo "en_US.UTF-8 UTF-8
 zh_CN.UTF-8 UTF-8" >> /etc/locale.gen
@@ -94,4 +106,4 @@ genkernel --install --compress-initramfs-type=zstd initramfs
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Gentoo
 grub-mkconfig -o /boot/grub/grub.cfg
 emerge -av kde-plasma/plasma-meta xorg-server xf86-video-amdgpu media-fonts/noto
-#+END_SRC
+```

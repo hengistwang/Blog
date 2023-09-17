@@ -1,8 +1,8 @@
 +++
-title = "sicp notes"
+title = "SICP"
 author = ["hengist"]
 date = 2023-08-06T00:00:00+08:00
-lastmod = 2023-08-12T16:35:23+08:00
+lastmod = 2023-09-17T17:55:52+08:00
 tags = ["scheme", "sicp"]
 draft = false
 +++

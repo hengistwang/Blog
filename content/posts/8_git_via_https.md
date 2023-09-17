@@ -2,8 +2,8 @@
 title = "Git via HTTPS"
 author = ["hengist"]
 date = 2023-07-18T00:00:00+08:00
-lastmod = 2023-07-18T22:58:37+08:00
-tags = ["Git", "Proxy"]
+lastmod = 2023-09-17T17:54:15+08:00
+tags = ["git", "proxy"]
 draft = false
 +++
 

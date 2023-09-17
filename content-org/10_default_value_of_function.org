@@ -1,7 +1,8 @@
 #+HUGO_BASE_DIR: ../
 #+HUGO_SECTION: posts
 #+HUGO_AUTO_SET_LASTMOD: t
-#+HUGO_TAGS: C
+
+#+HUGO_TAGS: c
 #+TITLE: Default value of function
 #+DATE: <2023-07-27 Thu>
 

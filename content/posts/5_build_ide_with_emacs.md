@@ -2,7 +2,7 @@
 title = "Build IDE with emacs"
 author = ["hengist"]
 date = 2023-07-05T00:00:00+08:00
-lastmod = 2023-07-05T23:30:06+08:00
+lastmod = 2023-09-17T17:51:41+08:00
 tags = ["emacs"]
 draft = false
 +++

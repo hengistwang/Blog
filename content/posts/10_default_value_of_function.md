@@ -2,7 +2,8 @@
 title = "Default value of function"
 author = ["hengist"]
 date = 2023-07-27T00:00:00+08:00
-lastmod = 2023-07-27T23:01:57+08:00
+lastmod = 2023-09-17T17:55:10+08:00
+tags = ["c"]
 draft = false
 +++
 
