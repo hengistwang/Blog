@@ -1,17 +1,13 @@
 +++
 title = "Link Load Lib"
-author = ["hengist"]
-date = 2023-07-02T00:00:00+08:00
-lastmod = 2023-09-17T17:50:28+08:00
+author = "hengist"
+date = "2023-07-02T00:00:00+08:00"
 tags = ["link", "load", "lib"]
-draft = false
 +++
 
 ## Chap I {#chap-i}
 
-
 ## Chap II {#chap-ii}
-
 
 ### Preprocessing {#preprocessing}
 
@@ -21,10 +17,9 @@ gcc -E src.c -o src.i
 
 This operation did several things.
 
-1.  processing all the instructions begin with '#', delete all of them except '#pragma', and process the '#include' recursively.
-2.  delete all comments.
-3.  add line number and file name identifiers
-
+1. processing all the instructions begin with '#', delete all of them except '#pragma', and process the '#include' recursively.
+2. delete all comments.
+3. add line number and file name identifiers
 
 ### Compile {#compile}
 
@@ -38,7 +33,6 @@ gcc -S src.c -o src.s
 ccl src.c
 ```
 
-
 ### Assembly {#assembly}
 
 to machine code
@@ -51,7 +45,6 @@ gcc -c src.s -o src.o
 gcc -c src.c -o src.o
 ```
 
-
 ### Link {#link}
 
 to executable program
@@ -59,7 +52,6 @@ to executable program
 ```bash
 ld src.o ......... *.o
 ```
-
 
 ## Chap III {#chap-iii}
 
