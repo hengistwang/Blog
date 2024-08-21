@@ -1,80 +1,54 @@
-+++
-title = "Link Load Lib"
-author = ["hengist"]
-date = 2023-07-02T00:00:00+08:00
-lastmod = 2023-09-17T17:50:28+08:00
-tags = ["link", "load", "lib"]
-draft = false
-+++
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+#+HUGO_AUTO_SET_LASTMOD: t
 
-## Chap I {#chap-i}
-
-
-## Chap II {#chap-ii}
-
-
-### Preprocessing {#preprocessing}
-
-```bash
+#+HUGO_TAGS: link load lib
+#+TITLE: Link Load Lib
+#+DATE: <2023-07-02 Sun>
+* Chap I
+* Chap II
+** Preprocessing
+ #+BEGIN_SRC bash
 gcc -E src.c -o src.i
-```
-
+ #+END_SRC
 This operation did several things.
-
-1.  processing all the instructions begin with '#', delete all of them except '#pragma', and process the '#include' recursively.
-2.  delete all comments.
-3.  add line number and file name identifiers
-
-
-### Compile {#compile}
-
+1. processing all the instructions begin with '#', delete all of them except '#pragma', and process the '#include' recursively.
+2. delete all comments.
+3. add line number and file name identifiers
+** Compile
 to assembly code
-
-```bash
+ #+BEGIN_SRC bash
 gcc -S src.i -o src.s
 # or
 gcc -S src.c -o src.s
 # or
 ccl src.c
-```
-
-
-### Assembly {#assembly}
-
+ #+END_SRC
+** Assembly
 to machine code
-
-```bash
+ #+BEGIN_SRC bash
 as src.s -o src.o
 # or
 gcc -c src.s -o src.o
 # or
 gcc -c src.c -o src.o
-```
-
-
-### Link {#link}
-
+ #+END_SRC
+** Link
 to executable program
-
-```bash
+ #+BEGIN_SRC bash
 ld src.o ......... *.o
-```
-
-
-## Chap III {#chap-iii}
-
+ #+END_SRC
+* Chap III
 get file type
-
-```bash
+ #+BEGIN_SRC bash
 $ file /bin/bash
 /bin/bash: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, stripped
 $ file librt.so.1
 librt.so.1: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, for GNU/Linux 3.2.0, stripped
-```
+#+END_SRC
 
 Some Segments
-
-```C
+#+BEGIN_SRC C
 int printf(const char *, ...);
 
 int global_init_var = 0x11;
@@ -90,4 +64,4 @@ int main(void) {
   func(static_var + static_var2 + a + b);
   return a;
 }
-```
+#+END_SRC

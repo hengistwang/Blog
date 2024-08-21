@@ -1,0 +1,13 @@
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+#+HUGO_AUTO_SET_LASTMOD: t
+
+#+HUGO_TAGS: c c++
+#+TITLE: One bug I encountered and some thoughts
+#+DATE: <2023-07-30 Sun>
+
+I met a bug recently, it's because I didn't notice the return value of a system call, and use it directly, sadly the compiler not be able to identify this kind problem, until I run it, I notice the program will never enter one condition.
+
+finally I found the getenv system call returns char* and I compare it with a string in C++, so this will not equal forever.
+
+This reminds me a book called Algorithms + Data Structures = Programs. I must know what data structure I manipulated with. Under this promise, I will write good and correct programs. So deal with function input well is a good habit with doubt.

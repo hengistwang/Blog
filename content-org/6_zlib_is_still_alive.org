@@ -1,0 +1,10 @@
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+#+HUGO_AUTO_SET_LASTMOD: t
+
+#+HUGO_TAGS: tools
+#+TITLE: Zlib is still alive
+#+DATE: <2023-07-06 Thu>
+as far as we know, zlib was forced to shut down by the USA government. However, it still remains available on the dark web, we can visit it through the tor-browser, and its address is posted on the Wikipedia, Here is the address:
+
+loginzlib​2vrak5zzpcocc3ouizykn6k5qecgj2tzlnab5wcbqhembyd.onion
